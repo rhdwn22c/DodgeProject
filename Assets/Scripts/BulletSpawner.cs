@@ -25,6 +25,22 @@ public class BulletSpawner : MonoBehaviour
 
     void Update()
     {
+        // timeAfterSpawn 갱신
+        timeAfterSpawn += Time.deltaTime;
 
+        // 최근 생성 시점에서부터 누적된 시간이 생성주기보다 크거나 같다면
+        if (timeAfterSpawn >= spawnRate)
+        {
+            // 누적된 시간을 리셋
+            timeAfterSpawn = 0f;
+
+            // bulletPrefab의 복제본을 transform.position/rotation 위치와 회전으로 생성
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            // 생성된 bullet 게임 오브젝트의 정면 방향이 target을 향하게
+            bullet.transform.LookAt(target);
+            
+            // 다음번 생성 간격을 spawnRateMin와 spawnRateMax 사이에 랜덤 지정
+            spawnRate = Random.Range(spawnRateMin, spawnRateMax);
+        }
     }
 }
