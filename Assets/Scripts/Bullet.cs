@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
+       
         // 충돌한 상대 오브젝트가 Player 태그를 가진 경우
         if (other.tag == "Player")
         {
